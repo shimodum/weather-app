@@ -17,6 +17,7 @@ public_html/hot
 
 storage/*.key
 .env
+.env.testing
 Homestead.yaml
 Homestead.json
 /.vagrant
@@ -28,3 +29,7 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+
+# MySQL データを Git に含めない,フォルダだけ Git に含める
+docker/mysql/data/*
+!.gitkeep
