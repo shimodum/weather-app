@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>天気予報アプリ</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script type="module" src="./js/app.js" defer></script>
+</head>
+
+<body>
+    <main class="app">
+        <h1>天気予報アプリ</h1>
+
+        <form id="weatherForm" class="search-form">
+            <input type="text" id="cityInput" placeholder="都市名を入力 例：Tokyo" />
+            <button type="submit">検索</button>
+        </form>
+
+        <section id="weatherResult" class="weather-card">
+            <p>都市名を入力して検索してください。</p>
+        </section>
+    </main>
+</body>
+
+</html>
