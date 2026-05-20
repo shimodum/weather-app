@@ -6,6 +6,8 @@ export function showWeather(data) {
   const iconUrl =
     `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
+  updateBackground(data.weather[0].main);
+
   weatherResult.innerHTML = `
     <h2>${data.name}</h2>
 
@@ -24,6 +26,9 @@ export function showWeather(data) {
 export function showError(message) {
   const weatherResult = document.getElementById('weatherResult');
 
+  // エラー時は背景をリセット
+  document.body.className = '';
+
   weatherResult.innerHTML = `
     <p class="error">${message}</p>
   `;
@@ -35,4 +40,29 @@ export function showLoading() {
   weatherResult.innerHTML = `
     <p>読み込み中...</p>
   `;
+}
+
+function updateBackground(weatherMain) {
+  document.body.className = '';
+
+  switch (weatherMain) {
+    case 'Clear':
+      document.body.classList.add('sunny');
+      break;
+
+    case 'Clouds':
+      document.body.classList.add('cloudy');
+      break;
+
+    case 'Rain':
+      document.body.classList.add('rainy');
+      break;
+
+    case 'Snow':
+      document.body.classList.add('snowy');
+      break;
+
+    default:
+      break;
+  }
 }
