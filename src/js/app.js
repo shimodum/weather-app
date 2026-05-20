@@ -78,7 +78,7 @@ currentLocationBtn.addEventListener('click', () => {
         );
 
         showWeather(weatherData);
-        addHistory(weatherData.name);
+        
       } catch (error) {
         showError(error.message);
       }

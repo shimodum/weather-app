@@ -1,4 +1,5 @@
 import { CONFIG } from './config.js';
+import { cityMap } from './cityMap.js';
 
 const API_KEY = CONFIG.API_KEY;
 const BASE_URL ='https://api.openweathermap.org/data/2.5/weather';
@@ -30,15 +31,6 @@ export async function fetchWeatherByCity(cityName) {
 }
 
 function normalizeCityName(cityName) {
-  const cityMap = {
-    '東京': 'Tokyo',
-    '大阪': 'Osaka',
-    '札幌': 'Sapporo',
-    '京都': 'Kyoto',
-    '名古屋': 'Nagoya',
-    '福岡': 'Fukuoka'
-  };
-
   return cityMap[cityName] || cityName;
 }
 
