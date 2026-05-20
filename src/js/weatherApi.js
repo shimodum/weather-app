@@ -1,5 +1,7 @@
-const API_KEY = 'fb9ce5ee73854088308fde8ee0f235c6';
-const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+import { CONFIG } from './config.js';
+
+const API_KEY = CONFIG.API_KEY;
+const BASE_URL ='https://api.openweathermap.org/data/2.5/weather';
 
 export async function fetchWeatherByCity(cityName) {
 

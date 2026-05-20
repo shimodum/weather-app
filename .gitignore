@@ -30,6 +30,8 @@ Homestead.json
 .phpactor.json
 auth.json
 
-# MySQL データを Git に含めない,フォルダだけ Git に含める
 docker/mysql/data/*
 !.gitkeep
+
+# Frontend config
+src/js/config.js
