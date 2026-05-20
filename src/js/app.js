@@ -1,4 +1,7 @@
-import { fetchWeatherByCity } from './weatherApi.js';
+import {
+  fetchWeatherByCity,
+  fetchWeatherByLocation
+} from './weatherApi.js';
 import { showWeather, showError, showLoading } from './ui.js';
 
 const form = document.getElementById('weatherForm');
@@ -60,3 +63,28 @@ function renderHistory() {
     historyList.appendChild(li);
   });
 }
+
+const currentLocationBtn = document.getElementById('currentLocationBtn');
+
+currentLocationBtn.addEventListener('click', () => {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      try {
+        showLoading();
+
+        const weatherData = await fetchWeatherByLocation(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+
+        showWeather(weatherData);
+        addHistory(weatherData.name);
+      } catch (error) {
+        showError(error.message);
+      }
+    },
+    () => {
+      showError('位置情報取得が許可されませんでした');
+    }
+  );
+});

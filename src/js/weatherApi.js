@@ -39,3 +39,22 @@ function normalizeCityName(cityName) {
 
   return cityMap[cityName] || cityName;
 }
+
+export async function fetchWeatherByLocation(
+  lat,
+  lon
+) {
+
+  const url =
+    `${BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=ja`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(
+      '現在地の天気情報取得に失敗しました'
+    );
+  }
+
+  return await response.json();
+}
