@@ -45,6 +45,7 @@ OpenWeather API を利用して現在の天気情報を取得し、検索履歴�
 - HTML
 - CSS
 - JavaScript
+- LocalStorage
 - Docker
 - OpenWeather API
 
@@ -125,6 +126,7 @@ src/js/config.example.js
 ```bash
 cp src/js/config.example.js src/js/config.js
 ```
+※ weatherApi.js から config.js を読み込む実装のため、この名前で作成してください。
 
 ※ APIキーは公開リポジトリへアップロードしないよう注意してください。
 
@@ -219,8 +221,8 @@ APIキーを別ファイルで管理し、Git管理対象から除外しまし�
 
 本アプリ制作を通じて以下を学習しました。
 
-- fetch を利用した非同期通信
 - OpenWeather APIとの連携
+- fetch を利用した非同期通信
 - localStorageを利用したデータ保持
 - レスポンシブデザイン
 - Docker環境での開発
