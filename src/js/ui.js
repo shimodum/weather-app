@@ -1,6 +1,8 @@
 export function showWeather(data) {
   const weatherResult = document.getElementById('weatherResult');
 
+  weatherResult.style.display = 'block';
+
   const icon = data.weather[0].icon;
 
   const iconUrl =
@@ -26,7 +28,8 @@ export function showWeather(data) {
 export function showError(message) {
   const weatherResult = document.getElementById('weatherResult');
 
-  // エラー時は背景をリセット
+  weatherResult.style.display = 'block';
+
   document.body.className = '';
 
   weatherResult.innerHTML = `
@@ -36,6 +39,8 @@ export function showError(message) {
 
 export function showLoading() {
   const weatherResult = document.getElementById('weatherResult');
+
+  weatherResult.style.display = 'block';
 
   weatherResult.innerHTML = `
     <p>読み込み中...</p>

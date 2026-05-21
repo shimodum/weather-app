@@ -7,6 +7,7 @@ import { showWeather, showError, showLoading } from './ui.js';
 const form = document.getElementById('weatherForm');
 const cityInput = document.getElementById('cityInput');
 const historyList = document.getElementById('historyList');
+const historySection = document.getElementById('historySection');
 
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
@@ -50,6 +51,13 @@ function addHistory(cityName) {
 
 function renderHistory() {
   historyList.innerHTML = '';
+
+  if (searchHistory.length === 0) {
+    historySection.style.display = 'none';
+    return;
+  }
+
+  historySection.style.display = 'block';
 
   searchHistory.forEach((cityName) => {
     const li = document.createElement('li');
