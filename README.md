@@ -1,4 +1,4 @@
-# Weather App
+# Weather App（JavaScript版）
 
 天気情報を検索・表示できるシンプルな天気予報アプリです。  
 OpenWeather API を利用して現在の天気情報を取得し、検索履歴機能や現在地取得機能を実装しています。
