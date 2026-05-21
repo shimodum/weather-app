@@ -10,7 +10,8 @@ body {
 }
 
 .app {
-    width: min(90%, 480px);
+    width: 90%;
+    max-width: 480px;
     margin: 80px auto;
     padding: 24px;
     background: #fff;
@@ -19,22 +20,55 @@ body {
     text-align: center;
 }
 
+.app h1 {
+    margin: 0 0 24px;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
 .search-form {
     display: flex;
     gap: 8px;
-    margin: 24px 0;
+    margin: 24px 0 12px;
 }
 
 .search-form input {
     flex: 1;
     padding: 12px;
     font-size: 16px;
+    border: 1px solid #999;
+    outline: none;
 }
 
-.search-form button {
+.search-form input:focus {
+    border: 1px solid #333;
+}
+
+.search-form button,
+.location-button {
     padding: 12px 16px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+
+.search-form button {
+    background: #e5e7eb;
+}
+
+.search-form button:hover {
+    background: #d1d5db;
+}
+
+.location-button {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #e0f2fe;
+}
+
+.location-button:hover {
+    background: #bae6fd;
 }
 
 .weather-card {
@@ -43,25 +77,20 @@ body {
     background: #f8fafc;
 }
 
+.weather-card h2 {
+    font-size: 24px;
+    margin: 0 0 16px;
+}
+
+.weather-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
 .error {
     color: #d33;
     font-weight: bold;
-}
-
-body.sunny {
-    background: linear-gradient(135deg, #87ceeb, #ffffff);
-}
-
-body.cloudy {
-    background: linear-gradient(135deg, #b0b7c3, #eef2f3);
-}
-
-body.rainy {
-    background: linear-gradient(135deg, #708090, #d3d3d3);
-}
-
-body.snowy {
-    background: linear-gradient(135deg, #e6f7ff, #ffffff);
 }
 
 .history {
@@ -72,21 +101,79 @@ body.snowy {
 .history h2 {
     font-size: 18px;
     text-align: center;
+    margin-bottom: 16px;
 }
 
 .history ul {
     padding: 0;
+    margin: 0;
     list-style: none;
 }
 
 .history li {
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
     background: #f8fafc;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    color: #333;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .history li:hover {
     background: #e9eef5;
+}
+
+.history li:focus,
+.history li:active,
+.history li:focus-visible {
+    background: #f8fafc;
+    outline: none;
+}
+
+body.sunny .app {
+    background: #dbeafe;
+}
+
+body.cloudy .app {
+    background: #cbd5e1;
+}
+
+body.rainy .app {
+    background: #bfdbfe;
+}
+
+body.snowy .app {
+    background: #f8fafc;
+}
+
+button:disabled,
+input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .app {
+        margin: 40px auto;
+        padding: 16px;
+    }
+
+    .app h1 {
+        font-size: 28px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
 }
