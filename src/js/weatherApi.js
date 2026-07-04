@@ -9,6 +9,9 @@ const WEATHER_BASE_URL =
 const FORECAST_BASE_URL =
   'https://api.openweathermap.org/data/2.5/forecast';
 
+const ZIPCLOUD_BASE_URL =
+  'https://zipcloud.ibsnet.co.jp/api/search';
+
 export async function fetchWeatherByCity(cityName) {
   const normalizedCityName =
     normalizeCityName(cityName);
@@ -87,40 +90,42 @@ export async function fetchForecastByLocation(
   return await response.json();
 }
 
-export async function fetchWeatherByZip(zipCode) {
+export async function fetchAddressByZip(zipCode) {
   const normalizedZipCode =
     normalizeZipCode(zipCode);
 
   const url =
-    `${WEATHER_BASE_URL}?zip=${normalizedZipCode},JP&appid=${API_KEY}&units=metric&lang=ja`;
+    `${ZIPCLOUD_BASE_URL}?zipcode=${normalizedZipCode}`;
 
   const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(
-      '郵便番号から天気情報を取得できませんでした。'
+      '郵便番号から住所を取得できませんでした。'
     );
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  if (!data.results || data.results.length === 0) {
+    throw new Error(
+      '該当する郵便番号が見つかりませんでした。'
+    );
+  }
+
+  return data.results[0];
+}
+
+export async function fetchWeatherByZip(zipCode) {
+  const address = await fetchAddressByZip(zipCode);
+
+  return await fetchWeatherByCity(address.address1);
 }
 
 export async function fetchForecastByZip(zipCode) {
-  const normalizedZipCode =
-    normalizeZipCode(zipCode);
+  const address = await fetchAddressByZip(zipCode);
 
-  const url =
-    `${FORECAST_BASE_URL}?zip=${normalizedZipCode},JP&appid=${API_KEY}&units=metric&lang=ja`;
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(
-      '郵便番号から5日間予報を取得できませんでした。'
-    );
-  }
-
-  return await response.json();
+  return await fetchForecastByCity(address.address1);
 }
 
 function normalizeCityName(cityName) {
