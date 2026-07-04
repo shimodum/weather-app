@@ -14,7 +14,7 @@
         <h1>天気予報アプリ</h1>
 
         <form id="weatherForm" class="search-form">
-            <input type="text" id="cityInput" placeholder="都市名または都道府県名を入力" />
+            <input type="text" id="cityInput" placeholder="都市名・都道府県名・郵便番号を入力" />
             <button type="submit">検索</button>
         </form>
 
@@ -23,6 +23,14 @@
         </button>
 
         <section id="weatherResult" class="weather-card" style="display: none;">
+        </section>
+
+        <section id="forecastResult" class="forecast" style="display: none;">
+        </section>
+
+        <section id="favoriteSection" class="favorites" style="display: none;">
+            <h2>お気に入り</h2>
+            <ul id="favoriteList"></ul>
         </section>
 
         <section id="historySection" class="history" style="display: none;">
