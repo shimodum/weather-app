@@ -49,7 +49,7 @@ body {
     padding: 12px 16px;
     font-size: 16px;
     cursor: pointer;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 8px;
 }
 
@@ -59,6 +59,7 @@ body {
 
 .search-form button:hover {
     background: #d1d5db;
+    border-color: #9ca3af;
 }
 
 .location-button {
@@ -69,6 +70,7 @@ body {
 
 .location-button:hover {
     background: #bae6fd;
+    border-color: #7dd3fc;
 }
 
 .weather-card {
@@ -183,7 +185,7 @@ body {
     display: block;
     margin: 0 auto 16px;
     padding: 8px 16px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 8px;
     background: #e5e7eb;
     cursor: pointer;
@@ -192,6 +194,7 @@ body {
 
 #favoriteButton:hover {
     background: #d1d5db;
+    border-color: #9ca3af;
 }
 
 #favoriteButton.favorite-active {
@@ -200,6 +203,7 @@ body {
 
 #favoriteButton.favorite-active:hover {
     background: #eab308;
+    border-color: #ca8a04;
 }
 
 .history {
@@ -259,7 +263,7 @@ body.rainy .app {
 }
 
 body.snowy .app {
-    background: #f8fafc;
+    background: #eef6ff;
 }
 
 button:disabled,

@@ -92,7 +92,6 @@ function addHistory(cityName) {
     searchHistory.filter((city) => city !== cityName);
 
   searchHistory.unshift(cityName);
-
   searchHistory = searchHistory.slice(0, 5);
 
   localStorage.setItem(
@@ -183,6 +182,8 @@ const currentLocationBtn =
   document.getElementById('currentLocationBtn');
 
 currentLocationBtn.addEventListener('click', () => {
+  cityInput.value = '';
+  
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       try {
@@ -206,13 +207,6 @@ currentLocationBtn.addEventListener('click', () => {
           ]);
 
         showWeather(weatherData);
-
-        showFavoriteButton(
-          weatherData.name,
-          isFavorite(weatherData.name),
-          toggleFavorite
-        );
-
         showForecast(forecastData);
       } catch (error) {
         showError(error.message);
