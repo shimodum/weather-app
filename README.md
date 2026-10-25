@@ -48,88 +48,146 @@ OpenWeather API と ZipCloud API を利用し、現在の天気情報・5日間�
 - HTML
 - CSS
 - JavaScript
-- LocalStorage
-- Docker
+- localStorage
+- Docker / Docker Compose
+- Nginx
 - OpenWeather API
 - ZipCloud API
 
 ---
 
+## 構成の見直しについて
+
+### 2026年10月：セキュリティを契機とした構成の見直し
+
+本アプリは当初、Laravel・PHP・MySQLを含むDocker環境で開発していました。
+
+PHPの脆弱性に関する情報をきっかけに、開発環境で使用しているミドルウェアのバージョンや構成を見直しました。
+
+調査の結果、天気情報の取得や画面表示はJavaScriptで完結しており、PHP・Laravel・MySQLはアプリの動作に必要ないことが分かりました。
+
+そのため、不要なバックエンド環境を削除し、NginxでHTML・CSS・JavaScriptを配信するシンプルな構成へ変更しました。
+
+主な対応内容は以下のとおりです。
+
+- 不要なPHP・Laravel・MySQL・phpMyAdminへの依存を解消
+- Docker ComposeをNginxのみの構成に変更
+- Nginxを1.21.1から1.30.6へ更新（2026年10月時点）
+- 天気アプリの配置先を `src/` から `site/` に変更
+- 構成変更後に各機能の動作を確認
+
+この見直しにより、アプリの機能を維持しながら、不要なミドルウェアを削減し、構成の簡素化とセキュリティリスクの低減を図りました。
+
+---
+
 ## セットアップ方法
+
+### 1. リポジトリを取得
 
 ```bash
 git clone https://github.com/shimodum/weather-app.git
 cd weather-app
+```
+
+### 2. APIキーを設定
+
+OpenWeather APIでAPIキーを取得してください。
+
+https://openweathermap.org/api
+
+サンプルファイルをコピーします。
+
+```bash
+cp site/js/config.example.js site/js/config.js
+```
+
+作成した `site/js/config.js` を開き、取得したAPIキーを設定してください。
+
+```javascript
+export const CONFIG = {
+  API_KEY: 'YOUR_API_KEY'
+};
+```
+
+※ `YOUR_API_KEY` を実際のAPIキーに置き換えてください。
+
+### 3. Dockerコンテナを起動
+
+```bash
 docker compose up -d
 ```
 
-ブラウザで以下へアクセスしてください。
+### 4. ブラウザでアクセス
 
-```txt
-http://localhost:5500/src/index.html
+以下のURLにアクセスしてください。
+
+http://localhost:8081/
+
+### 5. コンテナを停止する場合
+
+```bash
+docker compose down
 ```
 
 ---
 
 ## API設定
 
-本アプリケーションでは OpenWeather API を使用しています。
+本アプリケーションでは、OpenWeather APIを使用して天気情報を取得しています。
 
-OpenWeather API：  
+APIキーの取得先：
 https://openweathermap.org/api
 
-APIキー取得後、`src/js/config.js` を作成し、以下を設定してください。
+APIキーは `site/js/config.js` に設定します。
+
+設定ファイルのサンプルとして、`site/js/config.example.js` を用意しています。
 
 ```javascript
-export const API_KEY = "YOUR_API_KEY";
+export const CONFIG = {
+  API_KEY: 'YOUR_API_KEY'
+};
 ```
 
-サンプルファイルを用意しています。
+具体的な設定手順は「セットアップ方法」を参照してください。
 
-```txt
-src/js/config.example.js
-```
+### 注意事項
 
-以下コマンドでコピーできます。
-
-```bash
-cp src/js/config.example.js src/js/config.js
-```
-
-※ `weatherApi.js` から `config.js` を読み込む実装のため、この名前で作成してください。  
-※ `config.js` は Git 管理対象外です。  
-※ APIキーは公開リポジトリへアップロードしないよう注意してください。
+- `site/js/config.js` はGit管理対象外です。
+- APIキーをGitHubなどの公開リポジトリにコミットしないでください。
+- 本アプリはブラウザから直接APIを呼び出すため、APIキーはブラウザの開発者ツールなどから確認できます。
+- 現在はローカル環境での学習・動作確認を想定しています。
 
 ---
 
 ## ディレクトリ構成
 
-```txt
-weather-app
-├── docker
-│
-├── src
-│   ├── css
+```text
+weather-app/
+├── docker/
+│   └── nginx/
+│       └── default.conf
+├── site/
+│   ├── css/
 │   │   └── style.css
-│   │
-│   ├── js
+│   ├── js/
 │   │   ├── app.js
-│   │   ├── weatherApi.js
 │   │   ├── cityMap.js
 │   │   ├── config.example.js
-│   │   └── ui.js
-│   │
+│   │   ├── config.js
+│   │   ├── ui.js
+│   │   └── weatherApi.js
 │   └── index.html
-│
-├── images
+├── images/
 │   ├── pc.png
 │   └── mobile.png
-│
 ├── docker-compose.yml
+├── .gitignore
 └── README.md
 ```
 
 ※ 処理の中心となる主要ファイルのみ記載しています。
+
+※ `site/js/config.js` は各自の環境で作成するファイルであり、Git管理対象外です。
 
 ---
 
